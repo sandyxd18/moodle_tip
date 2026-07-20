@@ -4,7 +4,7 @@ services:
     depends_on:
       - db
     volumes:
-      - "${MOODLE_DOCKER_WWWROOT}:/var/www/html"
+      - ".:/var/www/html"
       - "./assets/web/apache2_faildumps.conf:/etc/apache2/conf-enabled/moodle-faildump.conf"
     environment:
       MOODLE_DOCKER_RUNNING: 1
@@ -34,7 +34,7 @@ services:
   selenium:
     image: "selenium/standalone-firefox:4"
     volumes:
-      - "${MOODLE_DOCKER_WWWROOT}:/var/www/html:ro"
+      - ".:/var/www/html:ro"
 
   redis:
     image: redis:alpine
