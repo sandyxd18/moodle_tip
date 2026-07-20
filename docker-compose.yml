@@ -1,0 +1,42 @@
+services:
+  webserver:
+    image: "moodlehq/moodle-php-apache:${MOODLE_DOCKER_PHP_VERSION:-8.3}"
+    depends_on:
+      - db
+    volumes:
+      - "${MOODLE_DOCKER_WWWROOT}:/var/www/html"
+      - "../moodle/assets/web/apache2_faildumps.conf:/etc/apache2/conf-enabled/moodle-faildump.conf"
+    environment:
+      MOODLE_DOCKER_RUNNING: 1
+      MOODLE_DOCKER_DBNAME: moodle
+      MOODLE_DOCKER_DBUSER: moodle
+      MOODLE_DOCKER_DBPASS: "m@0dl3ing"
+      MOODLE_DOCKER_BROWSER: firefox
+      MOODLE_DOCKER_WEB_HOST: "localhost"
+      MOODLE_DOCKER_WEB_PORT: "${MOODLE_DOCKER_WEB_PORT:-8000}"
+      MOODLE_DOCKER_DBTYPE: pgsql
+    ports:
+      - "${MOODLE_DOCKER_WEB_PORT:-8000}:80"
+
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: moodle
+      POSTGRES_PASSWORD: "m@0dl3ing"
+      POSTGRES_DB: moodle
+
+  exttests:
+    image: moodlehq/moodle-exttests
+    volumes:
+      - "../moodle/assets/exttests/apache2_ports.conf:/etc/apache2/ports.conf"
+      - "../moodle/assets/exttests/apache2.conf:/etc/apache2/sites-enabled/000-default.conf"
+
+  selenium:
+    image: "selenium/standalone-firefox:4"
+    volumes:
+      - "${MOODLE_DOCKER_WWWROOT}:/var/www/html:ro"
+
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
