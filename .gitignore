@@ -1,0 +1,24 @@
+# Environment variables (Sangat penting agar password tidak bocor ke publik)
+.env
+
+# Konfigurasi lokal Docker
+docker-compose.override.yml
+
+# Folder Data (Jika di masa depan Anda melakukan mount volume ke folder lokal)
+/moodledata
+/db_data
+/redis_data
+
+# IDE & Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Jika ada file cache atau logs sementara
+/logs
+/temp
+/trash
