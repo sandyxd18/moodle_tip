@@ -5,7 +5,7 @@ services:
       - db
     volumes:
       - "${MOODLE_DOCKER_WWWROOT}:/var/www/html"
-      - "../moodle/assets/web/apache2_faildumps.conf:/etc/apache2/conf-enabled/moodle-faildump.conf"
+      - "./assets/web/apache2_faildumps.conf:/etc/apache2/conf-enabled/moodle-faildump.conf"
     environment:
       MOODLE_DOCKER_RUNNING: 1
       MOODLE_DOCKER_DBNAME: moodle
@@ -28,8 +28,8 @@ services:
   exttests:
     image: moodlehq/moodle-exttests
     volumes:
-      - "../moodle/assets/exttests/apache2_ports.conf:/etc/apache2/ports.conf"
-      - "../moodle/assets/exttests/apache2.conf:/etc/apache2/sites-enabled/000-default.conf"
+      - "./assets/exttests/apache2_ports.conf:/etc/apache2/ports.conf"
+      - "./assets/exttests/apache2.conf:/etc/apache2/sites-enabled/000-default.conf"
 
   selenium:
     image: "selenium/standalone-firefox:4"
